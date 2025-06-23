@@ -23,10 +23,61 @@ let computerScore = 0;
 
 // Function to play the round
 
+// If human choose rock and computer choose scissors, human wins
+// If human choose scissors and computer choose paper, human wins
+// If human choose paper and computer choose rock, human wins
+// If both human and computer choose the same it's a draw
+// If vice versa computer wins.
+
 function playRound(humanChoice, computerChoice){
     let human = humanChoice.toLowerCase();
     let computer = computerChoice.toLowerCase();
-    console.log(human,", ",computer);
+    if(human == "rock"){
+        if(computer == "scissors"){
+            humanScore++;
+            console.log("You win! Rock beats scissors");
+        }
+
+        if(computer == "paper"){
+            computerScore++;
+            console.log("You lose! Scissors beats Rock");
+        }
+
+        if(computer == "rock"){
+            console.log("DRAW");
+        }
+    } else if(human == "scissors")
+    {
+        if(computer == "paper"){
+            humanScore++;
+            console.log("You win! Scissors beats paper");
+        }
+
+        if(computer == "rock"){
+            computerScore++;
+            console.log("You lose! Rock beats scissor");
+        }
+
+        if(computer == "scissors"){
+            console.log("DRAW");
+        }
+    }
+    else
+    {
+        if(computer == "rock"){
+            humanScore++;
+            console.log("You win! Paper beats rock");
+        }
+
+        if(computer == "scissors"){
+            computerScore++;
+            console.log("You lose! Scissors beats paper");
+        }
+
+        if(computer == "paper"){
+            console.log("DRAW");
+        }
+    }
 }
 
 
