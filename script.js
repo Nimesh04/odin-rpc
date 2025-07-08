@@ -1,3 +1,8 @@
+// Variables to keep track of score
+
+let humanScore = 0;
+let computerScore = 0;
+
 // List of choices that can choosed by random function.
 // Choose randomly from 0 to 3.
 // Return the item in that number from the list.
@@ -8,19 +13,6 @@ function getComputerChoice(){
     return computerChoice[randomNumber]
 }
 
-// Get input from user
-// Validate the input from the user with the choices
-
-function getHumanChoice(){
-    const humanChoice = prompt("Rock, paper or scissors:");
-    return humanChoice;
-}
-
-// Variables to keep track of score
-
-let humanScore = 0;
-let computerScore = 0;
-
 // Function to play the round
 
 // If human choose rock and computer choose scissors, human wins
@@ -29,72 +21,69 @@ let computerScore = 0;
 // If both human and computer choose the same it's a draw
 // If vice versa computer wins.
 
-
-function playGame(){
-
-    let humanSelection = getHumanChoice();
-    let computerSelection = getComputerChoice();
-
-    function playRound(humanChoice, computerChoice){
-        let human = humanChoice.toLowerCase();
-        let computer = computerChoice.toLowerCase();
-        if(human == "rock"){
-            if(computer == "scissors"){
-                humanScore++;
-                console.log("You win! Rock beats scissors");
-            }
-
-            if(computer == "paper"){
-                computerScore++;
-                console.log("You lose! Scissors beats Rock");
-            }
-
-            if(computer == "rock"){
-                console.log("DRAW");
-            }
-        } else if(human == "scissors")
-        {
-            if(computer == "paper"){
-                humanScore++;
-                console.log("You win! Scissors beats paper");
-            }
-
-            if(computer == "rock"){
-                computerScore++;
-                console.log("You lose! Rock beats scissor");
-            }
-
-            if(computer == "scissors"){
-                console.log("DRAW");
-            }
+function playRound(humanChoice, computerChoice){
+    let human = humanChoice.toLowerCase();
+    let computer = computerChoice.toLowerCase();
+    if(human == "rock"){
+        if(computer == "scissors"){
+            humanScore++;
+            console.log("You win! Rock beats scissors");
         }
-        else
-        {
-            if(computer == "rock"){
-                humanScore++;
-                console.log("You win! Paper beats rock");
-            }
 
-            if(computer == "scissors"){
-                computerScore++;
-                console.log("You lose! Scissors beats paper");
-            }
+        if(computer == "paper"){
+            computerScore++;
+            console.log("You lose! Scissors beats Rock");
+        }
 
-            if(computer == "paper"){
-                console.log("DRAW");
-            }
+        if(computer == "rock"){
+            console.log("DRAW");
+        }
+    } else if(human == "scissors")
+    {
+        if(computer == "paper"){
+            humanScore++;
+            console.log("You win! Scissors beats paper");
+        }
+
+        if(computer == "rock"){
+            computerScore++;
+            console.log("You lose! Rock beats scissor");
+        }
+
+        if(computer == "scissors"){
+            console.log("DRAW");
         }
     }
-    return playRound(humanSelection, computerSelection)
+    else
+    {
+        if(computer == "rock"){
+            humanScore++;
+            console.log("You win! Paper beats rock");
+        }
+
+        if(computer == "scissors"){
+            computerScore++;
+            console.log("You lose! Scissors beats paper");
+        }
+
+        if(computer == "paper"){
+            console.log("DRAW");
+        }
+    }
+    console.log("Human score: ", humanScore,"Computer score: ", computerScore);
 }
 
-let i = 0;
+// EventListener to all the click event happening in the button
+// Using the textContent of the button to figure out human choice.
 
-while (i <= 5){
-    console.log("Human score: ", humanScore);
-    console.log("Computer score: ", computerScore);
-    console.log(playGame());
-    i++;
-}
+let computerSelection = getComputerChoice();
+const btn = document.querySelectorAll("button");
+btn.forEach(element => {
+    element.addEventListener("click", playRound(element.textContent, computerSelection));
+});
 
-console.log("Human score: ", humanScore,"Computer score: ", computerScore);
+
+
+
+
+
