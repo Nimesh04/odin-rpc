@@ -3,18 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+    <title>RPS game</title>
 </head>
 <body>
-    <div class="results">
-
+    <h1>Welcome to the Game of Rock, Papper, Scissors</h1>
+    <div class="score">
+        <p id="score">Human Score: 0,<br> Computer Score: 0</p>
     </div>
-    <button id="rock">Rock</button>
 
-    <button id="paper">Paper</button>
+    <button class="rps">Rock</button>
 
-    <button id="scissors">Scissors</button>
+    <button class="rps">Paper</button>
 
+    <button class="rps">Scissors</button>
+
+    <div class="results">
+        <p>Results:</p>
+        <button id="restart" disabled hidden>Restart</button>
+    </div>
     <script src="script.js"> 
     </script>
 </body>

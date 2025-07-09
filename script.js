@@ -1,9 +1,17 @@
+// Getting the elements from html
+
+const para = document.querySelector("#score");
+const div1 = document.querySelector(".results");
+const para1 = document.createElement("p");
+const btn = document.querySelectorAll("button.rps");
+const restartBtn = document.querySelector("#restart");
+
 // Variables to keep track of score
 
 let humanScore = 0;
 let computerScore = 0;
 
-// List of choices that can choosed by random function.
+// List of choices for the random function.
 // Choose randomly from 0 to 3.
 // Return the item in that number from the list.
 
@@ -13,27 +21,31 @@ function getComputerChoice(){
     return computerChoice[randomNumber]
 }
 
+// If humanScore is equal to 5 then displaying human(or you) won and giving a restart button
+// If computerScore is equal to 5 then displaying computer won and giving a restart button
 
-// Display the results in the DOM
+function gameOver(){
+    let results = '';
+    if(humanScore == 5 & computerScore < 5){
+        results = "Congratulations, You won!";
+    }else{
+        results = "Good try, Computer won!";
+    }
+    btn.forEach(element => element.disabled = true);
+    restartBtn.disabled = false;
+    restartBtn.hidden = false;
+    return results;
+}
 
-const div = document.querySelector(".results");
-const para = document.createElement("p");
-const para1 = document.createElement("p");
-para.textContent = `Human score: ${humanScore}, Computer score: ${computerScore}`;
-div.appendChild(para);
-
-
-// Function to play the round
+// Logic to play the game
 // If human choose rock and computer choose scissors, human wins
 // If human choose scissors and computer choose paper, human wins
 // If human choose paper and computer choose rock, human wins
 // If both human and computer choose the same it's a draw
 // If vice versa computer wins.
 
-function playRound(humanChoice, computerChoice){
+function playGame(human, computer){
     let results = '';
-    let human = humanChoice.toLowerCase();
-    let computer = computerChoice.toLowerCase();
     if(human == "rock"){
         if(computer == "scissors"){
             humanScore++;
@@ -80,20 +92,45 @@ function playRound(humanChoice, computerChoice){
             results = "DRAW";
         }
     }
+    return results
+}
 
-    para.textContent = `Human score: ${humanScore}, Computer score: ${computerScore}`;
-    para1.textContent = results;
-    div.append(para, para1);
+
+// Function to restart the game
+
+function restartGame(){
+    restartBtn.hidden = true;
+    btn.forEach(element => element.disabled = false);
+    humanScore = 0;
+    computerScore = 0;
+    para.innerHTML = `<p id='score'>Human score: ${humanScore},<br>Computer score: ${computerScore}</p>`;
+    para1.textContent = '';
+    div1.append(para1);
+
+}
+// Function to play the round
+
+function playRound(humanChoice, computerChoice){
+    let human = humanChoice.toLowerCase();
+    let computer = computerChoice.toLowerCase();
+    let results = playGame(human, computer);
+    if(humanScore >= 5 || computerScore >= 5){
+        para1.textContent = gameOver();
+
+    }else{
+        para1.textContent = results;
+    }
+    para.innerHTML = `<p id='score'>Human score: ${humanScore},<br>Computer score: ${computerScore}</p>`;
+    div1.append(para1);
     console.log(`Human score: ${humanScore}, Computer score: ${computerScore}`);
 }
 
 // EventListener to all the click event happening in the button
 // Using the textContent of the button to figure out human choice.
-const btn = document.querySelectorAll("button");
 btn.forEach(element => {
     element.addEventListener("click",() => playRound(element.textContent, getComputerChoice()));
 });
 
-console.log(`Human score: ${humanScore}, Computer score: ${computerScore}`);
+restartBtn.addEventListener("click", ()=> restartGame());
 
 
